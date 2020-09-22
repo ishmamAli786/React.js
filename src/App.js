@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import React,{useState} from 'react';
+const App =()=>{
+  const purple = '#8e44ad';
+ const [bg,setBg]=useState(purple);
+ const [name,setName]=useState('Click Me')
+  const bgChange=()=>{
+    // console.log('clicked');
+    const newBg='red';
+    setBg(newBg);
+    setName('ouch!!');
+  }
+  return(
+    <>
+    <div className="center" style={{backgroundColor:'bg'}}>
+      <button onClick={bgChange}>{name}</button>
     </div>
+    </>
   );
 }
-
 export default App;
