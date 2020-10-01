@@ -1,0 +1,10 @@
+.target{
+  background-color:red;
+  width:600px;
+  height:300px;
+  color:black;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width:100px;
+}
