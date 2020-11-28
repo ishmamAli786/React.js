@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {Message} from './message';
 import './App.css';
-import Dinner from './dinner';
 function App() {
+  const [count,setCount]=useState(0);
+  const [isMorning, setMorning] = useState(false);
   return (
-    <div className="App">
-    <Dinner dishName="chipli kabab" sweetDish="sohan halwa" /><br></br>
-      <Dinner dishName="Birayni" sweetDish="Jaleebi" /><br></br>
-      <Dinner dishName="nan" sweetDish="Gajar Ka Halwa" />
+    <div className={`App ${isMorning ? 'day-light' :'day-night'}`}>
+    <h1>Day Time ={isMorning ? 'Morning': 'Night'}</h1>
+    <Message count={count}/>
+    <button onClick={()=>setCount(count +1)} className="btn">Increment</button>
+      <button onClick={() => setCount(count - 1)} className="btn">Decrement</button>
+      <button onClick={() => setMorning(!isMorning)} className="btn">Update Day</button>
     </div>
   );
 }

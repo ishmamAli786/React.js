@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  height:500px;
+  background-color: lightgray;
 }
 
 .App-logo {
@@ -35,4 +37,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+.btn{
+  background-color: blue;
+  color:white;
+  padding:15px;
+  border-radius: 10px;
+  margin: 3px;
+}
+.colr{
+  color: purple;
+}
+.day-light{
+  background-color: yellow;
+}
+.day-night{
+  background-color: green;
 }
