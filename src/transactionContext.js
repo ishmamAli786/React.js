@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import TransactionReducer from './transReducer';
 
-const  initialTransactions = [
+const initialTransactions = [
     {
         amount: 400,
         desc: "cash"
@@ -21,14 +21,14 @@ export const TransactionContext = createContext(initialTransactions);
 
 
 
-////////// Must Be Clear Mean Yet It is Not Clear
-export const TransactionProvider =({children})=>{
+
+export const TransactionProvider = ({ children }) => {
     let [state, dispatch] = useReducer(TransactionReducer, initialTransactions);
 
-    function addTransaction(transObj){
+    function addTransaction(transObj) {
         dispatch({
-            type:"ADD_TRANSACTION",
-            payload:{
+            type: "ADD_TRANSACTION",
+            payload: {
                 amount: transObj.amount,
                 desc: transObj.desc
             }
@@ -39,7 +39,7 @@ export const TransactionProvider =({children})=>{
             transactions: state,
             addTransaction: addTransaction
         }}>
-        {children}
+            {children}
         </TransactionContext.Provider>
     )
 }

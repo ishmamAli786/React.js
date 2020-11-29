@@ -1,36 +1,36 @@
-import React, { useContext,useState} from 'react';
-import { TransactionContext} from './transactionContext';
+import React, { useContext, useState } from 'react';
+import { TransactionContext } from './transactionContext';
 const Child = () => {
-    let { transactions, addTransaction}=useContext(TransactionContext);
-    let [newDesc,setDesc] = useState("");
+    let { transactions, addTransaction } = useContext(TransactionContext);
+    let [newDesc, setDesc] = useState("");
     let [newAmount, setAmount] = useState(0);
-    const handleAddition=(event)=>{
+    const handleAddition = (event) => {
         event.preventDefault();
-        if(Number(newAmount) === 0){
+        if (Number(newAmount) === 0) {
             alert("Must Enter Value");
             return false;
         }
         addTransaction({
             amount: Number(newAmount),
-            desc:newDesc
+            desc: newDesc
         });
         setDesc('');
         setAmount(0);
     }
-    const getIncome=()=>{
-        let income=0;
-        for(var i=0; i<transactions.length; i++){
-            if(transactions[i].amount>0)
-            income +=transactions[i].amount;
+    const getIncome = () => {
+        let income = 0;
+        for (var i = 0; i < transactions.length; i++) {
+            if (transactions[i].amount > 0)
+                income += transactions[i].amount;
         }
         return income;
     }
 
-    const getExpense=()=>{
-        let expense=0;
-        for(var i=0; i<transactions.length; i++){
-            if(transactions[i].amount<0)
-            expense +=transactions[i].amount;
+    const getExpense = () => {
+        let expense = 0;
+        for (var i = 0; i < transactions.length; i++) {
+            if (transactions[i].amount < 0)
+                expense += transactions[i].amount;
         }
         return expense;
     }
@@ -39,7 +39,7 @@ const Child = () => {
         <div className="container">
             <h1 className="text-center">Expense Tracker</h1>
 
-            <h3>Your Balance <br /> ${ getIncome() + getExpense() }</h3>
+            <h3>Your Balance <br /> ${getIncome() + getExpense()}</h3>
 
             <div className="expense-container">
                 <h3>Income <br /> <span style={{ color: 'green' }}> ${getIncome()}</span></h3>
@@ -49,10 +49,10 @@ const Child = () => {
             <hr></hr>
 
             <ul className="transaction-list">
-                {transactions.map((transObj,index)=>{
-                  return  <li key={index}>
-                      <span>{transObj.desc}</span>
-                      <span>${transObj.amount}</span>
+                {transactions.map((transObj, index) => {
+                    return <li key={index}>
+                        <span>{transObj.desc}</span>
+                        <span>${transObj.amount}</span>
                     </li>
                 })}
             </ul>
@@ -61,12 +61,12 @@ const Child = () => {
             <h3>Add New Transaction</h3>
             <hr></hr>
             <form className="transaction-form" onSubmit={handleAddition}>
-                <label>Enter Description <br/>
+                <label>Enter Description <br />
                     <input type="text" value={newDesc} placeholder="Description" onChange={(e) => setDesc(e.target.value)} required />
                 </label><br />
 
                 <label>Enter Amount<br />
-                    <input type="number" value={newAmount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)}/>
+                    <input type="number" value={newAmount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
                 </label><br />
                 <input type="submit" value="Add Transaction" required />
             </form>
