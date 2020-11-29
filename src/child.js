@@ -13,7 +13,9 @@ const Child = () => {
         addTransaction({
             amount: Number(newAmount),
             desc:newDesc
-        })
+        });
+        setDesc('');
+        setAmount(0);
     }
     const getIncome=()=>{
         let income=0;
@@ -37,11 +39,11 @@ const Child = () => {
         <div className="container">
             <h1 className="text-center">Expense Tracker</h1>
 
-            <h3>Your Balance <br /> { getIncome() + getExpense() }</h3>
+            <h3>Your Balance <br /> ${ getIncome() + getExpense() }</h3>
 
             <div className="expense-container">
-                <h3>Income <br /> <span style={{ color: 'green' }}>{getIncome()}</span></h3>
-                <h3>Expense <br /> <span style={{ color: 'red' }}>{getExpense()}</span></h3>
+                <h3>Income <br /> <span style={{ color: 'green' }}> ${getIncome()}</span></h3>
+                <h3>Expense <br /> <span style={{ color: 'red' }}> ${getExpense()}</span></h3>
             </div>
             <h3>History</h3>
             <hr></hr>
@@ -50,7 +52,7 @@ const Child = () => {
                 {transactions.map((transObj,index)=>{
                   return  <li key={index}>
                       <span>{transObj.desc}</span>
-                      <span>{transObj.amount}</span>
+                      <span>${transObj.amount}</span>
                     </li>
                 })}
             </ul>
@@ -60,11 +62,11 @@ const Child = () => {
             <hr></hr>
             <form className="transaction-form" onSubmit={handleAddition}>
                 <label>Enter Description <br/>
-                    <input type="text" onChange={(e) => setDesc(e.target.value)} required />
+                    <input type="text" value={newDesc} placeholder="Description" onChange={(e) => setDesc(e.target.value)} required />
                 </label><br />
 
                 <label>Enter Amount<br />
-                    <input type="number" onChange={(e) => setAmount(e.target.value)}/>
+                    <input type="number" value={newAmount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)}/>
                 </label><br />
                 <input type="submit" value="Add Transaction" required />
             </form>
