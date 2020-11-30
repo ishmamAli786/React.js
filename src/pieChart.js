@@ -26,7 +26,7 @@ export default function PieChart(){
         return (
             <div>
                 <h2>Pie Example</h2>
-                <Pie data={data} />
+                <Pie data={data} height={50}/>
             </div>
         );
     }
