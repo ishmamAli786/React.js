@@ -9,6 +9,19 @@ function ContactForm(props) {
     }
     var [values, setValues] = useState(intialFieldValue);
 
+
+    useEffect(()=>{
+        if(props.currentId ==''){
+            setValues({
+                ...intialFieldValue
+            })
+        } else {
+            setValues({
+                ...props.contactObjects[props.currentId]
+            })
+        }
+    },[props.currentId,props.contactObjects])
+
     const handleInputChange=(e)=>{
         var {name,value}=e.target;
         setValues({
@@ -51,7 +64,7 @@ function ContactForm(props) {
                         <textarea className="form-contorl" name="address" placeholder="address" onChange={handleInputChange} value={values.address}></textarea>
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="save" className="btn btn-primary btn-block"></input>
+                        <input type="submit" value={props.currentId==''?"Save":"Update"} className="btn btn-primary btn-block"></input>
                     </div>
             </form>
         </>

@@ -3,6 +3,7 @@ import ContactForm from './contactForm';
 import firebaseDB from "../firebase";
 function Contact(){
     var [contactObjects, setcontactObjects]=useState(0);
+    var [currentId,setCureentId]=useState('')
 
     useEffect(()=>{
         firebaseDB.child('contacts').on('value',snapshot=>{
@@ -10,15 +11,41 @@ function Contact(){
                 setcontactObjects({
                     ...snapshot.val()
                 })
+            } else {
+                setcontactObjects({})
             }
         })
     },[])   /// similar to component DidMount
     const addOrEdit = obj=>{
-        firebaseDB.child('contacts').push(obj,err=>{
-            if(err){
-                console.log(err)
-            }
-        })
+        if(currentId==''){
+            firebaseDB.child('contacts').push(obj, err => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    setCureentId('')
+                }
+            })
+        }else{
+            firebaseDB.child(`contacts/${currentId}`).set(obj, err => {
+                if (err) {
+                    console.log(err)
+                }else{
+                    setCureentId('')
+                }
+            })
+        }
+    }
+
+    const onDelete=(key)=>{
+        if(window.confirm('Are You Sure To Delete This Account')){
+            firebaseDB.child(`contacts/${key}`).remove(err => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    setCureentId('')
+                }
+            })
+        }
     }
     return(
         <>
@@ -30,7 +57,7 @@ function Contact(){
         <div className="conatiner">
         <div className="row">
         <div className="col-md-5">
-        <ContactForm addOrEdit={addOrEdit}/>
+        <ContactForm {...({addOrEdit,currentId,contactObjects})}/>
         </div>
         <div className="col-md-7">
         <div>
@@ -51,8 +78,8 @@ function Contact(){
                     <td>{contactObjects[id].mobile}</td>
                     <td>{contactObjects[id].email}</td>
                     <td>
-                        <i className="far fa-edit text-warning"></i>
-                        <i className="far fa-trash-alt ml-3 text-danger"></i>
+                             <a onClick={()=> setCureentId(id)}><i className="far fa-edit text-warning"></i></a>
+                             <a onClick={()=>onDelete(id)}><i className="far fa-trash-alt ml-3 text-danger"></i></a>
                     </td>
                 </tr>
             })
